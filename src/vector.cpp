@@ -39,6 +39,11 @@ double Vector::length() const
     return std::sqrt(dot(*this));
 }
 
+Vector Vector::normalised() const
+{
+    return (1.0 / length()) * *this;
+}
+
 Vector operator*(double factor, const Vector& vector)
 {
     return Vector(factor * vector.x(), factor * vector.y(), factor * vector.z());
