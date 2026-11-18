@@ -17,3 +17,5 @@ private:
     double _y;
     double _z;
 };
+
+Vector operator*(double factor, const Vector& vector);

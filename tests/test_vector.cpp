@@ -42,3 +42,13 @@ TEST_CASE("subtracting vectors subtracts their coordinates")
     REQUIRE(difference_with_nonzero_z.y() == 4);
     REQUIRE(difference_with_nonzero_z.z() == 4);
 }
+
+TEST_CASE("a scalar on the left scales a vector")
+{
+    const Vector vector(3, -4, 1);
+    const Vector scaled = 2.0 * vector;
+
+    REQUIRE(scaled.x() == 6);
+    REQUIRE(scaled.y() == -8);
+    REQUIRE(scaled.z() == 2);
+}
