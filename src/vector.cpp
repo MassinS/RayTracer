@@ -44,7 +44,7 @@ Vector Vector::normalised() const
     return (1.0 / length()) * *this;
 }
 
-Vector operator*(double factor, const Vector& vector)
+Vector operator*(double t, const Vector& vector)
 {
-    return Vector(factor * vector.x(), factor * vector.y(), factor * vector.z());
+    return Vector(t * vector.x(), t * vector.y(), t * vector.z());
 }

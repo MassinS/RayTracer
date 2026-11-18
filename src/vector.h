@@ -21,4 +21,4 @@ private:
     double _z;
 };
 
-Vector operator*(double factor, const Vector& vector);
+Vector operator*(double t, const Vector& vector);
