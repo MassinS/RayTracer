@@ -28,6 +28,7 @@ also be run from a terminal outside the editor.
 
 ## Requirements
 
+- GNU Make for the short commands below
 - CMake 3.21 or newer
 - Ninja
 - A C++17 compiler (GCC, Clang, or MSVC), unless using the dev container
@@ -36,20 +37,22 @@ also be run from a terminal outside the editor.
 - Docker, plus the VS Code Dev Containers extension or Dev Container CLI, to
   use the dev container
 
-## Build and run
+## Build, run, test, and clean
 
-Run these commands from the repository root (configure once, then rebuild as
-needed):
+From the repository root, GNU Make provides short commands for the CMake
+preset workflow. These commands use the Unix-oriented preset and are intended
+for Unix-like systems or the dev container; on Windows, use the dev container:
 
 ```sh
-cmake --preset unix-debug
-cmake --build --preset unix-debug
+make build
+make run
+make test
+make clean
 ```
 
-Run the program:
-
-- Unix-like systems and the dev container: `./build/unix-debug/raytracer`
-- Windows: `.\build\unix-debug\raytracer.exe`
+`make build` configures and compiles the project. `make run` builds, then runs
+the program. `make test` builds, then runs the Catch2 and output tests through
+CTest. `make clean` removes the generated `build/` directory.
 
 It prints:
 
@@ -60,14 +63,7 @@ Hello, World!
 ## Test-driven development
 
 Tests use [Catch2](https://github.com/catchorg/Catch2) and integrate with
-CMake's CTest runner. Tests are enabled by default. After configuring and
-building, run:
-
-```sh
-ctest --preset unix-debug
-```
-
-This runs the Catch2 unit test and checks that the program prints the greeting.
-For a TDD cycle, add or update a test in `tests/`, run CTest to see it fail,
-implement the behavior, and run CTest again. Catch2 is fetched automatically
-by CMake during the first configure.
+CMake's CTest runner. Tests are enabled by default. For a TDD cycle, add or
+update a test in `tests/`, run `make test` to see it fail, implement the
+behavior, then run `make test` again. Catch2 is fetched automatically by CMake
+during the first build.

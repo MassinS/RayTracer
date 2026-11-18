@@ -1,26 +1,14 @@
 # Project instructions
 
-## Build, run, and test
+## Build, run, test, and clean
 
-From the project root (configure once, then rebuild as needed):
-
-```sh
-cmake --preset unix-debug
-cmake --build --preset unix-debug
-```
-
-Run the program:
+Run these commands from the project root:
 
 ```sh
-./build/unix-debug/raytracer
-```
-
-On Windows, run `.\build\unix-debug\raytracer.exe`.
-
-Run tests:
-
-```sh
-ctest --preset unix-debug
+make build
+make run
+make test
+make clean
 ```
 
 ## Architecture decisions
