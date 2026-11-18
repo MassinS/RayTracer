@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "unix-debug",
+      "displayName": "Unix Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/unix-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "unix-debug",
+      "configurePreset": "unix-debug"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "unix-debug",
+      "configurePreset": "unix-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}
