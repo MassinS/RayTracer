@@ -67,3 +67,14 @@ CMake's CTest runner. Tests are enabled by default. For a TDD cycle, add or
 update a test in `tests/`, run `make test` to see it fail, implement the
 behavior, then run `make test` again. Catch2 is fetched automatically by CMake
 during the first build.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for dev-container setup, the TDD
+workflow, and how to work with ADRs. Use the
+[issue templates](.github/ISSUE_TEMPLATE/) and
+[pull request template](.github/PULL_REQUEST_TEMPLATE.md) when proposing a
+change.
+
+Pull requests run the build and tests in the same dev container through
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml).
