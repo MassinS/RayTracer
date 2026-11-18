@@ -52,3 +52,15 @@ TEST_CASE("a scalar on the left scales a vector")
     REQUIRE(scaled.y() == -8);
     REQUIRE(scaled.z() == 2);
 }
+
+TEST_CASE("the ray equation gives a point along the ray")
+{
+    const Vector O(0, 8, 0);
+    const Vector D(3, -4, 0);
+    const double t = 2;
+    const Vector point = O + t * D;
+
+    REQUIRE(point.x() == 6);
+    REQUIRE(point.y() == 0);
+    REQUIRE(point.z() == 0);
+}
