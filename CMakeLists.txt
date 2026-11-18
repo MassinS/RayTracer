@@ -6,9 +6,9 @@ include(CTest)
 
 add_library(raytracer_hello
     src/hello.cpp
-    src/vector.cpp
+    src/math/vector.cpp
 )
-target_include_directories(raytracer_hello PUBLIC include)
+target_include_directories(raytracer_hello PUBLIC include PRIVATE src)
 target_compile_features(raytracer_hello PUBLIC cxx_std_17)
 
 add_executable(raytracer src/main.cpp)
