@@ -6,6 +6,7 @@ include(CTest)
 
 add_library(raytracer_hello
     src/hello.cpp
+    src/vector.cpp
 )
 target_include_directories(raytracer_hello PUBLIC include)
 target_compile_features(raytracer_hello PUBLIC cxx_std_17)
@@ -23,11 +24,8 @@ if(BUILD_TESTING)
     )
     FetchContent_MakeAvailable(Catch2)
 
-    add_executable(raytracer_tests tests/hello_test.cpp)
-    target_link_libraries(raytracer_tests PRIVATE raytracer_hello Catch2::Catch2WithMain)
-
     include(Catch)
-    catch_discover_tests(raytracer_tests)
+    add_subdirectory(tests)
 
     add_test(NAME raytracer_prints_hello_world COMMAND raytracer)
     set_tests_properties(raytracer_prints_hello_world PROPERTIES
