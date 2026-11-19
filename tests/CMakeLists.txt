@@ -2,6 +2,7 @@ add_executable(raytracer_tests
     colour/test_colour.cpp
     geometry/test_ray.cpp
     geometry/test_sphere.cpp
+    geometry/test_plane.cpp
     image/test_image.cpp
     math/test_vector.cpp
     material/test_material.cpp
