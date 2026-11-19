@@ -3,19 +3,19 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("Camera ray through the centre starts at the eye")
+TEST_CASE("Camera ray through its only pixel starts at the eye")
 {
     const Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2);
-    const Ray ray = camera.rayThroughCentre();
+    const Ray ray = camera.rayThroughPixel(0, 0, 1, 1);
 
     requireVectorsEqual(ray.origin(), Vector(0, 0, -1));
     requireVectorsEqual(ray.direction(), Vector(0, 0, 1));
 }
 
-TEST_CASE("Camera ray direction is screen centre minus eye")
+TEST_CASE("Camera ray through its only pixel points to the screen centre")
 {
     const Camera camera(Vector(1, 2, -1), Vector(4, 6, -1), 2);
-    const Ray ray = camera.rayThroughCentre();
+    const Ray ray = camera.rayThroughPixel(0, 0, 1, 1);
 
     requireVectorsEqual(ray.origin(), Vector(1, 2, -1));
     requireVectorsEqual(ray.direction(), Vector(3, 4, 0));

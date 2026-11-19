@@ -6,11 +6,6 @@ Camera::Camera(const Vector& eye, const Vector& screenCentre, double screenWidth
 {
 }
 
-Ray Camera::rayThroughCentre() const
-{
-    return Ray(_eye, _screenCentre - _eye);
-}
-
 Ray Camera::rayThroughPixel(int column, int row, int width, int height) const
 {
     const double pixelSize = _screenWidth / width;
