@@ -145,6 +145,24 @@ Object-oriented programming can help separate these responsibilities, making the
 
 This is an initial conceptual model, not a finalized software architecture.
 
+### Current one-pixel model
+
+The pinhole spike implements the following concepts for computing the colour
+of one pixel:
+
+| Class | Holds | Operations | State and deferred behavior |
+|---|---|---|---|
+| `Vector` | x, y, z | Addition, subtraction, scaling, dot product, length, normalization | Implemented in `math/`. |
+| `Colour` | Red, green, blue channels | Read the r, g, and b components | A separate type, held by `Sphere` and intended for each `Image` pixel; see [ADR 0007](../adr/0007-colour-as-a-separate-type.md). |
+| `Ray` | Origin and direction vectors | Read origin and direction | Implemented; evaluating a point at t is deferred until needed. |
+| `Sphere` | Centre, radius, and colour | Test whether a ray hits it; return its colour | Implemented; choosing the nearest hit is deferred until there are multiple spheres. |
+| `Camera` | Eye and screen-centre vectors | Create a ray through the centre pixel | Implemented for the single centre pixel. |
+| `Image` | Width, height, and a colour per pixel | Set a pixel and save the image | Not implemented yet. |
+
+For now, `trace(ray, sphere)` decides the pixel colour: it returns the
+sphere's colour on a hit and black otherwise. This is a one-sphere spike; the
+decision can grow when the scene contains more objects or a background.
+
 **Sources:**
 - [ISO C++ — C++ FAQ](https://isocpp.org/wiki/faq/big-picture)
 - [cppreference — C++ Language](https://en.cppreference.com/w/cpp/language)
