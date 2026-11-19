@@ -2,6 +2,7 @@
 #include "geometry/sphere.h"
 #include "image/image.h"
 #include "math/vector.h"
+#include "material/material.h"
 #include "render/camera.h"
 #include "output/png_saver.h"
 
@@ -11,7 +12,7 @@
 int main()
 {
     Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2);
-    Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0, 0));
+    Sphere sphere(Vector(0, 0, 9), 5, Material(Colour(1, 0, 0)));
     Image image = camera.render(sphere, 400, 300);
     std::string path = "image.png";
     PngSaver saver;

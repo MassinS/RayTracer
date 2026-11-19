@@ -1,4 +1,5 @@
 #include "render/camera.h"
+#include "material/material.h"
 #include "test_helpers.h"
 
 #include <catch2/catch_test_macros.hpp>
@@ -51,7 +52,7 @@ TEST_CASE("Camera ray through the bottom left pixel points down and left")
 TEST_CASE("Camera renders the sphere as a red plus on the pixel grid")
 {
     const Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 5);
-    const Sphere sphere(Vector(0, 0, 6), 5, Colour(1, 0, 0));
+    const Sphere sphere(Vector(0, 0, 6), 5, Material(Colour(1, 0, 0)));
     const Image image = camera.render(sphere, 5, 3);
 
     REQUIRE(image.width() == 5);
