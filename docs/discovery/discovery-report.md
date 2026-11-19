@@ -145,18 +145,23 @@ Object-oriented programming can help separate these responsibilities, making the
 
 This is an initial conceptual model, not a finalized software architecture.
 
-### Current pixel-to-image model
+### Current shaded-scene model
 
-The ray tracer now computes every pixel for one sphere and can save the image
-as a PNG:
+The ray tracer shades every pixel against a scene of shapes and saves the
+result as a PNG:
 
 | Class | Holds | Operations | State and deferred behavior |
 |---|---|---|---|
 | `Vector` | x, y, z | Addition, subtraction, scaling, dot product, length, normalization | Implemented in `math/`. |
-| `Colour` | Red, green, blue channels | Read the r, g, and b components | A separate type held by `Sphere` and by each `Image` pixel; see [ADR 0007](../adr/0007-colour-as-a-separate-type.md). |
-| `Ray` | Origin and direction vectors | Read origin and direction | Implemented; evaluating a point at t is deferred until needed. |
-| `Sphere` | Centre, radius, and colour | Test whether a ray hits it; return its colour | Implemented; choosing the nearest hit is deferred until there are multiple spheres. |
-| `Camera` | Eye, screen-centre vectors, and screen width | Create a ray through a pixel; render a sphere into an image | Image resolution is chosen by the caller; only one sphere is rendered. |
+| `Colour` | Red, green, blue channels | Read the r, g, and b components; scale by a number | A separate type used by materials and image pixels; see [ADR 0007](../adr/0007-colour-as-a-separate-type.md). |
+| `Ray` | Origin and direction vectors | Read origin and direction; evaluate the point at t | Implemented in `geometry/`. |
+| `Material` | A colour | Return its colour; shade it with Lambert's law | Shading expects unit normal and light-direction vectors. |
+| `Hit` | t, point, unit normal, and material | None; a value returned by a shape | Returned only for an intersection in front of the ray origin. |
+| `Shape` | No state | Return its nearest hit for a ray | Abstract interface implemented by concrete geometry. |
+| `Sphere` | Centre, radius, and material | Return its nearest hit | Implements `Shape`; the hit normal points out of the sphere. Shapes have materials by composition; see [ADR 0010](../adr/0010-shape-has-a-material.md). |
+| `Plane` | A point, unit normal, and material | Return its hit | Implements `Shape`; parallel rays and hits behind the origin miss. |
+| `Scene` | A unit light direction and owned shapes | Add a shape; find the nearest hit | Owns shapes through `std::unique_ptr<Shape>`. |
+| `Camera` | Eye, screen-centre vectors, and screen width | Create a ray through a pixel; render a scene into an image | Image resolution is chosen by the caller. |
 | `Image` | Width, height, and a colour per pixel | Read and set a pixel | Stores pixels privately in row-major order; knows nothing about file formats. |
 | `ImageSaver` | No state | Save a whole image to a path or throw `std::runtime_error` | Abstract output contract. |
 | `PngSaver` | No state | Save an image as PNG | Uses LodePNG behind `ImageSaver`; channel values are rounded to bytes; see [ADR 0008](../adr/0008-png-output-with-lodepng.md). |
@@ -165,9 +170,9 @@ World coordinates use x-right, y-up, z-forward, while image columns and rows
 are counted from the top left; see the proposed
 [coordinate-system ADR](../adr/0009-coordinate-system.md).
 
-For now, `trace(ray, sphere)` decides the pixel colour: it returns the
-sphere's colour on a hit and black otherwise. This is a one-sphere spike; the
-decision can grow when the scene contains more objects or a background.
+For each pixel, `trace(ray, scene)` asks the scene for its nearest hit. A hit's
+material shades the pixel using its normal and the scene's light direction;
+when no shape is hit, the pixel is black.
 
 **Sources:**
 - [ISO C++ — C++ FAQ](https://isocpp.org/wiki/faq/big-picture)

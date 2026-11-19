@@ -1,7 +1,7 @@
 # RayTracer
 
 This repository contains a student C++ ray tracer project. The current program
-renders a red sphere against a black background to a 400 by 300 PNG file named
+renders a shaded red sphere on a grey floor to a 400 by 300 PNG file named
 `image.png`.
 
 ## Build strategy
