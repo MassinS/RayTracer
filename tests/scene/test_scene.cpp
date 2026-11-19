@@ -1,6 +1,7 @@
 #include "geometry/plane.h"
 #include "geometry/sphere.h"
 #include "scene/scene.h"
+#include "test_helpers.h"
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
@@ -47,4 +48,11 @@ TEST_CASE("Scene returns no hit when none of its shapes are hit")
     const Ray ray(Vector(0, 0, -1), Vector(0, 0, 1));
 
     REQUIRE_FALSE(scene.nearestHit(ray).has_value());
+}
+
+TEST_CASE("Scene normalises the direction towards the light")
+{
+    const Scene scene(Vector(0, 3, -4));
+
+    requireVectorsEqual(scene.toLight(), Vector(0, 0.6, -0.8));
 }

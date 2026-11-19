@@ -51,3 +51,17 @@ TEST_CASE("Sphere hit misses behind the ray origin")
 
     REQUIRE_FALSE(sphere.hit(ray).has_value());
 }
+
+TEST_CASE("Sphere hit finds the exit when the ray starts inside")
+{
+    const Ray ray(Vector(0, 0, -1), Vector(0, 0, 1));
+    const Sphere sphere(
+        Vector(0, 0, 1), 5, Material(Colour(1, 0, 0)));
+
+    const std::optional<Hit> hit = sphere.hit(ray);
+
+    REQUIRE(hit.has_value());
+    REQUIRE_THAT(hit->t, Catch::Matchers::WithinAbs(7, tolerance));
+    requireVectorsEqual(hit->point, Vector(0, 0, 6));
+    requireVectorsEqual(hit->normal, Vector(0, 0, 1));
+}
