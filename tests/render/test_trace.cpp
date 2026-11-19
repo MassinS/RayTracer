@@ -7,7 +7,7 @@
 
 TEST_CASE("trace returns the sphere colour for a hit")
 {
-    const Camera camera(Vector(0, 0, -1), Vector(0, 0, 0));
+    const Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2);
     const Ray ray = camera.rayThroughCentre();
     const Sphere sphere(Vector(0, 0, 9), 5, Colour(1, 0, 0));
 
@@ -18,7 +18,7 @@ TEST_CASE("trace returns the sphere colour for a hit")
 
 TEST_CASE("trace returns black for a miss")
 {
-    const Camera camera(Vector(0, 0, -1), Vector(0, 0, 0));
+    const Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 2);
     const Ray ray = camera.rayThroughCentre();
     const Sphere sphere(Vector(6, 0, 9), 5, Colour(1, 0, 0));
 
