@@ -1,7 +1,8 @@
 # RayTracer
 
-This repository is the starting point for a student C++ ray tracer project.
-For now, it contains a small Hello World program and a test setup.
+This repository contains a student C++ ray tracer project. The current program
+renders a red sphere against a black background to a 400 by 300 PNG file named
+`image.png`.
 
 ## Build strategy
 
@@ -32,8 +33,8 @@ also be run from a terminal outside the editor.
 - CMake 3.21 or newer
 - Ninja
 - A C++17 compiler (GCC, Clang, or MSVC), unless using the dev container
-- Git and an internet connection for the initial test-enabled configure, to
-  download Catch2
+- Git and an internet connection for the initial configure, to download
+  Catch2 and LodePNG
 - Docker, plus the VS Code Dev Containers extension or Dev Container CLI, to
   use the dev container
 
@@ -54,10 +55,10 @@ make clean
 the program. `make test` builds, then runs the Catch2 and output tests through
 CTest. `make clean` removes the generated `build/` directory.
 
-It prints:
+`make run` writes the PNG and prints its path:
 
 ```text
-Hello, World!
+image.png
 ```
 
 ## Test-driven development
@@ -66,7 +67,8 @@ Tests use [Catch2](https://github.com/catchorg/Catch2) and integrate with
 CMake's CTest runner. Tests are enabled by default. For a TDD cycle, add or
 update a test in `tests/`, run `make test` to see it fail, implement the
 behavior, then run `make test` again. Catch2 is fetched automatically by CMake
-during the first build.
+during the first configure. LodePNG is also fetched by CMake during
+configuration.
 
 ## Contributing
 
