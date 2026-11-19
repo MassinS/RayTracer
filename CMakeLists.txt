@@ -7,6 +7,10 @@ include(CTest)
 add_library(raytracer_hello
     src/hello.cpp
     src/math/vector.cpp
+    src/colour.cpp
+    src/ray.cpp
+    src/sphere.cpp
+    src/camera.cpp
 )
 target_include_directories(raytracer_hello PUBLIC include PRIVATE src)
 target_compile_features(raytracer_hello PUBLIC cxx_std_17)
@@ -27,8 +31,8 @@ if(BUILD_TESTING)
     include(Catch)
     add_subdirectory(tests)
 
-    add_test(NAME raytracer_prints_hello_world COMMAND raytracer)
-    set_tests_properties(raytracer_prints_hello_world PROPERTIES
-        PASS_REGULAR_EXPRESSION "Hello, World!"
+    add_test(NAME raytracer_prints_pixel_colour COMMAND raytracer)
+    set_tests_properties(raytracer_prints_pixel_colour PROPERTIES
+        PASS_REGULAR_EXPRESSION "\\(1, 0, 0\\)"
     )
 endif()
