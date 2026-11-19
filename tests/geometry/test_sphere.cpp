@@ -1,4 +1,5 @@
 #include "geometry/sphere.h"
+#include "test_helpers.h"
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -40,7 +41,5 @@ TEST_CASE("Sphere returns its colour")
     const Sphere sphere(Vector(0, 0, 9), 5, colour);
     const Colour actual = sphere.colour();
 
-    REQUIRE(actual.r() == 1);
-    REQUIRE(actual.g() == 0);
-    REQUIRE(actual.b() == 0);
+    requireColoursEqual(actual, colour);
 }

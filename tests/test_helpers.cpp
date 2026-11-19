@@ -5,6 +5,13 @@
 
 const double tolerance = 1e-9;
 
+void requireColoursEqual(const Colour& actual, const Colour& expected)
+{
+    REQUIRE_THAT(actual.r(), Catch::Matchers::WithinAbs(expected.r(), tolerance));
+    REQUIRE_THAT(actual.g(), Catch::Matchers::WithinAbs(expected.g(), tolerance));
+    REQUIRE_THAT(actual.b(), Catch::Matchers::WithinAbs(expected.b(), tolerance));
+}
+
 void requireVectorsEqual(const Vector& actual, const Vector& expected)
 {
     REQUIRE_THAT(actual.x(), Catch::Matchers::WithinAbs(expected.x(), tolerance));

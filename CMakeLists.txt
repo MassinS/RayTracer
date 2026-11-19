@@ -5,7 +5,6 @@ project(RayTracer VERSION 0.1.0 LANGUAGES CXX)
 include(CTest)
 
 add_library(raytracer_hello
-    src/hello.cpp
     src/math/vector.cpp
     src/colour/colour.cpp
     src/geometry/ray.cpp
@@ -13,7 +12,7 @@ add_library(raytracer_hello
     src/render/camera.cpp
     src/render/trace.cpp
 )
-target_include_directories(raytracer_hello PUBLIC include PRIVATE src)
+target_include_directories(raytracer_hello PRIVATE src)
 target_compile_features(raytracer_hello PUBLIC cxx_std_17)
 
 add_executable(raytracer src/main.cpp)

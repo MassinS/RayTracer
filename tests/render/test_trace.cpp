@@ -1,6 +1,7 @@
 #include "math/vector.h"
 #include "render/camera.h"
 #include "render/trace.h"
+#include "test_helpers.h"
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -12,9 +13,7 @@ TEST_CASE("trace returns the sphere colour for a hit")
 
     const Colour pixel = trace(ray, sphere);
 
-    REQUIRE(pixel.r() == 1);
-    REQUIRE(pixel.g() == 0);
-    REQUIRE(pixel.b() == 0);
+    requireColoursEqual(pixel, Colour(1, 0, 0));
 }
 
 TEST_CASE("trace returns black for a miss")
@@ -25,7 +24,5 @@ TEST_CASE("trace returns black for a miss")
 
     const Colour pixel = trace(ray, sphere);
 
-    REQUIRE(pixel.r() == 0);
-    REQUIRE(pixel.g() == 0);
-    REQUIRE(pixel.b() == 0);
+    requireColoursEqual(pixel, Colour(0, 0, 0));
 }
