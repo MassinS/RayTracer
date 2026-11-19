@@ -45,8 +45,8 @@ if(BUILD_TESTING)
     include(Catch)
     add_subdirectory(tests)
 
-    add_test(NAME raytracer_prints_pixel_colour COMMAND raytracer)
-    set_tests_properties(raytracer_prints_pixel_colour PROPERTIES
-        PASS_REGULAR_EXPRESSION "\\(1, 0, 0\\)"
+    add_test(NAME raytracer_saves_image COMMAND raytracer)
+    set_tests_properties(raytracer_saves_image PROPERTIES
+        PASS_REGULAR_EXPRESSION "image\\.png"
     )
 endif()
