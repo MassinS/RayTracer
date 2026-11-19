@@ -1,8 +1,8 @@
-#include "camera.h"
-#include "colour.h"
+#include "colour/colour.h"
+#include "geometry/ray.h"
+#include "geometry/sphere.h"
 #include "math/vector.h"
-#include "ray.h"
-#include "sphere.h"
+#include "render/camera.h"
 
 #include <iostream>
 

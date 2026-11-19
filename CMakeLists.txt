@@ -7,16 +7,17 @@ include(CTest)
 add_library(raytracer_hello
     src/hello.cpp
     src/math/vector.cpp
-    src/colour.cpp
-    src/ray.cpp
-    src/sphere.cpp
-    src/camera.cpp
+    src/colour/colour.cpp
+    src/geometry/ray.cpp
+    src/geometry/sphere.cpp
+    src/render/camera.cpp
 )
 target_include_directories(raytracer_hello PUBLIC include PRIVATE src)
 target_compile_features(raytracer_hello PUBLIC cxx_std_17)
 
 add_executable(raytracer src/main.cpp)
 target_link_libraries(raytracer PRIVATE raytracer_hello)
+target_include_directories(raytracer PRIVATE ${PROJECT_SOURCE_DIR}/src)
 
 if(BUILD_TESTING)
     include(FetchContent)
