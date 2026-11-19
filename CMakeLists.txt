@@ -11,6 +11,7 @@ add_library(raytracer_hello
     src/geometry/ray.cpp
     src/geometry/sphere.cpp
     src/render/camera.cpp
+    src/render/trace.cpp
 )
 target_include_directories(raytracer_hello PUBLIC include PRIVATE src)
 target_compile_features(raytracer_hello PUBLIC cxx_std_17)
