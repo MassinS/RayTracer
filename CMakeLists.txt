@@ -9,6 +9,7 @@ add_library(raytracer_hello
     src/colour/colour.cpp
     src/geometry/ray.cpp
     src/geometry/sphere.cpp
+    src/image/image.cpp
     src/render/camera.cpp
     src/render/trace.cpp
 )
