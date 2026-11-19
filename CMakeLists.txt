@@ -22,6 +22,7 @@ add_library(raytracer_hello
     src/geometry/ray.cpp
     src/geometry/sphere.cpp
     src/geometry/plane.cpp
+    src/scene/scene.cpp
     src/image/image.cpp
     src/output/png_saver.cpp
     src/render/camera.cpp
