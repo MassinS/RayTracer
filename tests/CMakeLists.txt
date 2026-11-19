@@ -4,6 +4,7 @@ add_executable(raytracer_tests
     geometry/test_sphere.cpp
     image/test_image.cpp
     math/test_vector.cpp
+    material/test_material.cpp
     output/test_png_saver.cpp
     render/test_camera.cpp
     render/test_trace.cpp
