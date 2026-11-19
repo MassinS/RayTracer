@@ -1,8 +1,12 @@
+#include "geometry/sphere.h"
 #include "render/camera.h"
 #include "material/material.h"
+#include "scene/scene.h"
 #include "test_helpers.h"
 
 #include <catch2/catch_test_macros.hpp>
+
+#include <memory>
 
 TEST_CASE("Camera ray through its only pixel starts at the eye")
 {
@@ -52,8 +56,10 @@ TEST_CASE("Camera ray through the bottom left pixel points down and left")
 TEST_CASE("Camera renders the sphere as a red plus on the pixel grid")
 {
     const Camera camera(Vector(0, 0, -1), Vector(0, 0, 0), 5);
-    const Sphere sphere(Vector(0, 0, 6), 5, Material(Colour(1, 0, 0)));
-    const Image image = camera.render(sphere, 5, 3);
+    Scene scene(Vector(0, 0, -1));
+    scene.add(std::make_unique<Sphere>(
+        Vector(0, 0, 6), 5, Material(Colour(1, 0, 0))));
+    const Image image = camera.render(scene, 5, 3);
 
     REQUIRE(image.width() == 5);
     REQUIRE(image.height() == 3);
@@ -62,11 +68,13 @@ TEST_CASE("Camera renders the sphere as a red plus on the pixel grid")
     {
         for (int column = 0; column < image.width(); ++column)
         {
-            const bool isRed =
-                (column == 2) || (row == 1 && column >= 1 && column <= 3);
-            const Colour expected = isRed
+            const bool isCentre = row == 1 && column == 2;
+            const bool isNeighbour =
+                (row == 1 && (column == 1 || column == 3)) ||
+                (column == 2 && (row == 0 || row == 2));
+            const Colour expected = isCentre
                 ? Colour(1, 0, 0)
-                : Colour(0, 0, 0);
+                : isNeighbour ? Colour(0.8, 0, 0) : Colour(0, 0, 0);
             requireColoursEqual(image.pixel(column, row), expected);
         }
     }
